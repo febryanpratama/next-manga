@@ -1,4 +1,4 @@
-import { post } from "@/src/core/api/api";
+import { post,get } from "@/src/core/api/api";
 import {
   callToastDone,
   callToastError,
@@ -23,3 +23,40 @@ export const loginLoading = async (path: string, body: Record<string, any>) => {
 
   return resp;
 };
+
+export const getData = async(path: string, body: Record<string,any>) => {
+  const resp = await get(path, body);
+
+  if (resp === null) {
+    callToastError("An error occurred");
+
+    return null;
+  }
+
+  // if(resp.status !== 200) {
+  //   callToastError(resp.message);
+
+  //   return null;
+  // }
+
+  return resp;
+}
+
+export const postData = async(path: string, body: Record<string, any>) => {
+
+  const resp = await post(path, body);
+
+  if (resp === null) {
+    callToastError("An error occurred");
+
+    return null;
+  }
+
+  if(resp.status !== 200) {
+    callToastError(resp.message);
+
+    return null;
+  }
+
+  return resp;
+}

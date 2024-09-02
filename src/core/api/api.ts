@@ -68,3 +68,8 @@ export const post = async (
 ): Promise<any> => {
   return await fetchData(path, body, Method.POST);
 };
+
+
+export const get = async (path: string, body: Record<string,any>): Promise<any> => {
+  return await fetchData(path, body, Method.GET);
+}
