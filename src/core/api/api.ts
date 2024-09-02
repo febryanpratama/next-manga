@@ -17,6 +17,7 @@ enum Method {
   PUT = "PUT",
   PATCH = "PATCH",
   DELETE = "DELETE",
+  HEAD = "HEAD",
 }
 const cookieStore = cookies();
 
@@ -29,13 +30,68 @@ const header = async (): Promise<HeadersInit | undefined> => {
   };
 };
 
+// const fetchData = async (
+//   path: string,
+//   body: Record<string, any>,
+//   method: Method,
+// ): Promise<any> => {
+//   const base = `${baseUrl()}${path}`;
+
+//   const headers = await header();
+
+//   console.debug("fetching data from", base);
+//   console.debug("headers", headers);
+//   console.debug("method", method);
+//   console.debug("body", body);
+//   console.debug("====================================");
+
+//   return fetch(base, {
+//     method: method,
+//     headers: headers,
+//     body: JSON.stringify(body),
+//   })
+//     .then(async (res) => {
+//       console.debug("response status", res.status);
+//       const [respJson] = await Promise.all([res.json()]);
+
+//       if (res.status == 200 || res.status == 201) {
+//         console.debug("response body", respJson);
+
+//         if (respJson.token !== null) {
+//           cookieStore.set("token", respJson.token, {
+//             expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+//           });
+//         }
+
+//         return {
+//           message: respJson.message ?? "Success",
+//           statusCode: res.status,
+//           data: respJson,
+//         };
+//       } else if (res.status == 400) {
+//         // console.log("ERROR 400")
+//         throw new ErrorData(respJson.message, res.status);
+//       } else {
+//         throw new ErrorData("Network response was not ok", 500);
+//       }
+//     })
+//     .catch((error: ErrorData) => {
+//       console.debug("error", error.message);
+
+//       return {
+//         message: error.message,
+//         statusCode: error.status,
+//         data: null,
+//       };
+//     });
+// };
+
 const fetchData = async (
   path: string,
   body: Record<string, any>,
-  method: Method,
+  method: Method
 ): Promise<any> => {
   const base = `${baseUrl()}${path}`;
-
   const headers = await header();
 
   console.debug("fetching data from", base);
@@ -44,16 +100,22 @@ const fetchData = async (
   console.debug("body", body);
   console.debug("====================================");
 
-  return fetch(base, {
+  const fetchOptions: RequestInit = {
     method: method,
     headers: headers,
-    body: JSON.stringify(body),
-  })
+  };
+
+  // Include body only if the method is not GET or HEAD
+  if (method !== Method.GET && method !== Method.HEAD) {
+    fetchOptions.body = JSON.stringify(body);
+  }
+
+  return fetch(base, fetchOptions)
     .then(async (res) => {
       console.debug("response status", res.status);
       const [respJson] = await Promise.all([res.json()]);
 
-      if (res.status == 200 || res.status == 201) {
+      if (res.status === 200 || res.status === 201) {
         console.debug("response body", respJson);
 
         if (respJson.token !== null) {
@@ -67,7 +129,7 @@ const fetchData = async (
           statusCode: res.status,
           data: respJson,
         };
-      } else if (res.status == 400) {
+      } else if (res.status === 400) {
         throw new ErrorData(respJson.message, res.status);
       } else {
         throw new ErrorData("Network response was not ok", 500);
@@ -83,6 +145,7 @@ const fetchData = async (
       };
     });
 };
+
 
 export const postFetchData = async (
   path: string,
@@ -103,8 +166,10 @@ export const getFetchData = async (
 ): Promise<ReturnResult> => {
   const resp = await fetchData(path, body, Method.GET);
 
+  console.log("response api.ts", resp);
+
   return {
-    data: resp.data,
+    data: resp,
     message: resp.message,
     statusCode: resp.statusCode,
   };

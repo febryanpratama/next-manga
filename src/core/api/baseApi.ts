@@ -36,14 +36,16 @@ export const get = async (path: string) => {
   callToastLoading(date.getTime().toString());
   const resp = await getFetchData(path, {});
 
-  callToastDone(date.getTime().toString());
+  console.log("##############################");
+  console.log("response baseapi.ts", resp.data);
+  // callToastDone(date.getTime().toString());
 
   if (resp.data === null) {
     callToastError(resp.message);
 
     return null;
   }
-  callToastSuccess(resp.message);
+  // callToastSuccess(resp.data.message);
 
   return resp.data;
 };

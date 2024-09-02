@@ -23,7 +23,7 @@ const HomeService = () => {
     }, []);
         
 
-    console.log(komik);
+    // console.log("Response Komik Service",komik);
   return {
     komik,
     setKomik,

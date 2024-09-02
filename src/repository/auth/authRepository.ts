@@ -1,11 +1,11 @@
 import { ConvertModelUser, ModelUser } from "@/src/model/modelUser";
-import { loginLoading } from "@/src/core/api/baseApi";
+import { post } from "@/src/core/api/baseApi";
 
 export const login = async (
   email: string,
   password: string,
 ): Promise<ModelUser | null> => {
-  const resp = loginLoading("/auth/login", {
+  const resp = post("/auth/login", {
     username: email,
     password: password,
     expiresInMins: 30,
@@ -28,7 +28,7 @@ export const register = async(
   username: string,
   password: string,
 ): Promise<ModelUser | null> => {
-  const resp = loginLoading("/auth/register", {
+  const resp = post("/auth/register", {
     email: email,
     username: username,
     password: password,
