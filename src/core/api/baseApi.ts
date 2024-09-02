@@ -1,4 +1,10 @@
-import { post,get } from "@/src/core/api/api";
+import {
+  deleteFetchData,
+  getFetchData,
+  patchFetchData,
+  postFetchData,
+  putFetchData,
+} from "@/src/core/api/api";
 import {
   callToastDone,
   callToastError,
@@ -6,57 +12,92 @@ import {
   callToastSuccess,
 } from "@/src/components/toast/callToast";
 
-export const loginLoading = async (path: string, body: Record<string, any>) => {
+export const post = async (path: string, body: Record<string, any>) => {
   const date = new Date();
 
   callToastLoading(date.getTime().toString());
-  const resp = await post(path, body);
+  const resp = await postFetchData(path, body);
 
   callToastDone(date.getTime().toString());
 
-  if (resp === null) {
-    callToastError("Invalid username or password");
-
-    return null;
-  }
-  callToastSuccess("Logged in successfully!");
-
-  return resp;
-};
-
-export const getData = async(path: string, body: Record<string,any>) => {
-  const resp = await get(path, body);
-
-  if (resp === null) {
-    callToastError("An error occurred");
-
-    return null;
-  }
-
-  // if(resp.status !== 200) {
-  //   callToastError(resp.message);
-
-  //   return null;
-  // }
-
-  return resp;
-}
-
-export const postData = async(path: string, body: Record<string, any>) => {
-
-  const resp = await post(path, body);
-
-  if (resp === null) {
-    callToastError("An error occurred");
-
-    return null;
-  }
-
-  if(resp.status !== 200) {
+  if (resp.data === null) {
     callToastError(resp.message);
 
     return null;
   }
+  callToastSuccess(resp.message);
 
-  return resp;
-}
+  return resp.data;
+};
+
+export const get = async (path: string) => {
+  const date = new Date();
+
+  callToastLoading(date.getTime().toString());
+  const resp = await getFetchData(path, {});
+
+  callToastDone(date.getTime().toString());
+
+  if (resp.data === null) {
+    callToastError(resp.message);
+
+    return null;
+  }
+  callToastSuccess(resp.message);
+
+  return resp.data;
+};
+
+export const patch = async (path: string, body: Record<string, any>) => {
+  const date = new Date();
+
+  callToastLoading(date.getTime().toString());
+  const resp = await patchFetchData(path, body);
+
+  callToastDone(date.getTime().toString());
+
+  if (resp.data === null) {
+    callToastError(resp.message);
+
+    return null;
+  }
+  callToastSuccess(resp.message);
+
+  return resp.data;
+};
+
+export const put = async (path: string, body: Record<string, any>) => {
+  const date = new Date();
+
+  callToastLoading(date.getTime().toString());
+  const resp = await putFetchData(path, body);
+
+  callToastDone(date.getTime().toString());
+
+  if (resp.data === null) {
+    callToastError(resp.message);
+
+    return null;
+  }
+  callToastSuccess(resp.message);
+
+  return resp.data;
+};
+
+export const deleted = async (path: string, body: Record<string, any>) => {
+  const date = new Date();
+
+  callToastLoading(date.getTime().toString());
+  const resp = await deleteFetchData(path, body);
+
+  callToastDone(date.getTime().toString());
+
+  if (resp.data === null) {
+    callToastError(resp.message);
+
+    return null;
+  }
+  callToastSuccess(resp.message);
+
+  return resp.data;
+};
