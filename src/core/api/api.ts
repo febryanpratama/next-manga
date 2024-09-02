@@ -19,6 +19,7 @@ enum Method {
   DELETE = "DELETE",
   HEAD = "HEAD",
 }
+
 const cookieStore = cookies();
 
 const header = async (): Promise<HeadersInit | undefined> => {
@@ -89,7 +90,7 @@ const header = async (): Promise<HeadersInit | undefined> => {
 const fetchData = async (
   path: string,
   body: Record<string, any>,
-  method: Method
+  method: Method,
 ): Promise<any> => {
   const base = `${baseUrl()}${path}`;
   const headers = await header();
@@ -146,7 +147,6 @@ const fetchData = async (
     });
 };
 
-
 export const postFetchData = async (
   path: string,
   body: Record<string, any>,
@@ -169,7 +169,7 @@ export const getFetchData = async (
   console.log("response api.ts", resp);
 
   return {
-    data: resp,
+    data: resp.result,
     message: resp.message,
     statusCode: resp.statusCode,
   };
