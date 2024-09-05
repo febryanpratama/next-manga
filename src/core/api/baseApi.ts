@@ -15,29 +15,9 @@ import {
 export const post = async (path: string, body: Record<string, any>) => {
   const date = new Date();
 
-  callToastLoading(date.getTime().toString());
+  // callToastLoading(date.getTime().toString());
   const resp = await postFetchData(path, body);
 
-  callToastDone(date.getTime().toString());
-
-  if (resp.data === null) {
-    callToastError(resp.message);
-
-    return null;
-  }
-  callToastSuccess(resp.message);
-
-  return resp.data;
-};
-
-export const get = async (path: string) => {
-  const date = new Date();
-
-  callToastLoading(date.getTime().toString());
-  const resp = await getFetchData(path, {});
-
-  console.log("##############################");
-  console.log("response baseapi.ts", resp.data);
   // callToastDone(date.getTime().toString());
 
   if (resp.data === null) {
@@ -45,9 +25,26 @@ export const get = async (path: string) => {
 
     return null;
   }
-  // callToastSuccess(resp.data.message);
+  // callToastSuccess(resp.message);
 
   return resp.data;
+};
+
+export const get = async (path: string) => {
+  const date = new Date();
+
+  // callToastLoading(date.getTime().toString());
+  const resp = await getFetchData(path, {});
+
+  // console.log("response", resp);
+  if (resp.data === null) {
+    callToastError(resp.message);
+
+    return null;
+  }
+  // callToastSuccess(resp.data.message);
+
+  return resp;
 };
 
 export const patch = async (path: string, body: Record<string, any>) => {

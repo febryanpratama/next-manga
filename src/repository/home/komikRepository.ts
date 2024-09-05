@@ -6,7 +6,7 @@ export const getDataKomik = async (
   ): Promise<any | null> => {
     const resp = await get("/komik/open-api/" + page);
   
-    console.log("response repository", resp);
+    // console.log("response repository", resp);
     if (resp === null) {
       return null;
     }

@@ -1,8 +1,7 @@
-"use client"
+// "use client"
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { login, register } from "@/src/repository/auth/authRepository";
 import { getDataKomik } from "@/src/repository/home/komikRepository";
 
 const HomeService = () => {
@@ -15,7 +14,7 @@ const HomeService = () => {
             return null;
         }
         // console.log(resp);
-        setKomik(resp);
+        setKomik(resp.data.listData);
     }
 
     useEffect(() => {
@@ -23,7 +22,6 @@ const HomeService = () => {
     }, []);
         
 
-    // console.log("Response Komik Service",komik);
   return {
     komik,
     setKomik,

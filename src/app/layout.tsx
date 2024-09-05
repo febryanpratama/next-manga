@@ -11,6 +11,7 @@ import { fontSans } from "@/src/config/fonts";
 import { Navbar } from "@/src/components/navbar";
 import ToastProvider from "@/src/components/toast/toastProvider";
 import { NavigationBar } from "../components/NavigationBar";
+import { PackageProvider } from "./package/PackageContext";
 
 export const metadata: Metadata = {
   title: {
@@ -51,7 +52,10 @@ export default function RootLayout({
             <main className="w-full flex-grow">
               <ToastProvider>
                 {/* <div className="container px-4 py-4 flex flex-col justify-center bg-red-500 h-full"> */}
+                <PackageProvider>
+
                   {children}
+                </PackageProvider>
                 {/* </div> */}
               </ToastProvider>
             </main>

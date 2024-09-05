@@ -56,13 +56,13 @@ export const NavigationBar = () => {
             <p className="font-bold text-inherit">NEXTMANGA</p>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
-            <NavbarItem>
-                <Link color="foreground" href="#">
+            <NavbarItem isActive>
+                <Link href="/" aria-current="page">
                     Home
                 </Link>
             </NavbarItem>
-            <NavbarItem isActive>
-                <Link href="#" aria-current="page">
+            <NavbarItem>
+                <Link href="#" color='foreground'>
                     Popular
                 </Link>
             </NavbarItem>
@@ -72,7 +72,7 @@ export const NavigationBar = () => {
                 </Link>
             </NavbarItem>
             <NavbarItem>
-                <Link color="foreground" href="#">
+                <Link color="foreground" href="package">
                     Package
                 </Link>
             </NavbarItem>

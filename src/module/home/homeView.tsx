@@ -1,7 +1,8 @@
 "use client"
-import { Image } from '@nextui-org/react'
+import { Image, Link } from '@nextui-org/react'
 import React from 'react'
 import HomeService from './homeService'
+// import Link from 'next/link'
 
 const HomeView = () => {
 
@@ -103,8 +104,24 @@ const HomeView = () => {
         {/* Manga */}
         <div className="container my-10">
             <div className='text-3xl font-bold text-start my-4 '>Highlights</div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <div className="relative">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+                {komik.map((item: any, index: number) => (
+                    <div key={index} className="relative">
+                        <Link href={`/manga/${item.id}`}>
+                            <Image src={item.urlGambar} alt='' className="object-fill w-full" loading='lazy' radius="lg" height={500} />
+                            <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
+                            <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
+                                <div className='text-center text-white font-bold'>
+                                    {item.judul}
+                                </div>
+                                <div className='text-center text-white'>
+                                    {item.terakhirDiperbarui}
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
+                {/* <div className="relative">
                     <Image src='/images/manga/hashira.png' alt='' className="object-fill w-full" loading='eager' radius="lg" />
                     <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
                     <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
@@ -199,7 +216,7 @@ const HomeView = () => {
                             lorem ipsum dolor sit amet
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </div>

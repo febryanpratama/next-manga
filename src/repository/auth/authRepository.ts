@@ -1,11 +1,12 @@
 import { ConvertModelUser, ModelUser } from "@/src/model/modelUser";
 import { post } from "@/src/core/api/baseApi";
+import { ConvertCheckModel, ModelCheck } from "@/src/model/modelCheck";
 
 export const login = async (
   email: string,
   password: string,
 ): Promise<ModelUser | null> => {
-  const resp = post("/auth/login", {
+  const resp = await post("/auth/login", {
     username: email,
     password: password,
     expiresInMins: 30,
@@ -28,7 +29,7 @@ export const register = async(
   username: string,
   password: string,
 ): Promise<ModelUser | null> => {
-  const resp = post("/auth/register", {
+  const resp = await post("/auth/register", {
     email: email,
     username: username,
     password: password,
@@ -39,4 +40,22 @@ export const register = async(
   }
 
   return ConvertModelUser.toModelUser(JSON.stringify(resp));
+}
+
+export const checkValue = async(
+  key: string,
+  value: string,
+): Promise<ModelCheck | null> => {
+  const resp = await post("/auth/check", {
+    key: key,
+    value: value,
+  });
+
+  console.log("Response Repository",resp)
+
+  if (resp === null) {
+    return null;
+  }
+
+  return ConvertCheckModel.toGetCheckResponse(JSON.stringify(resp));
 }

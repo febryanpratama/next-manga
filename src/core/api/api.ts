@@ -166,12 +166,13 @@ export const getFetchData = async (
 ): Promise<ReturnResult> => {
   const resp = await fetchData(path, body, Method.GET);
 
-  console.log("response api.ts", resp);
-
   return {
-    data: resp.result,
+    data: resp.data.result,
     message: resp.message,
     statusCode: resp.statusCode,
+    // data: "data",
+    // message: "message",
+    // statusCode: 201,
   };
 };
 
