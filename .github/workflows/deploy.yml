@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18.11.0' # Spesifikasi versi Node.js
+          node-version: '18.17.1' # Spesifikasi versi Node.js
           cache: 'npm'
 
       - name: Install dependencies
@@ -32,8 +32,8 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build . -t ${{ secrets.DOCKER_USERNAME }}/next-manga:${IMAGE_TAG}
-          docker push ${{ secrets.DOCKER_USERNAME }}/next-manga:${IMAGE_TAG}
+          docker build . -t ${{ secrets.DOCKER_USERNAME }}/fe-komik:${IMAGE_TAG}
+          docker push ${{ secrets.DOCKER_USERNAME }}/fe-komik:${IMAGE_TAG}
 
   deploy:
     needs: build
@@ -46,8 +46,8 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/next-manga:${{ github.sha }}
-            docker stop next-manga || true
-            docker rm next-manga || true
+            docker pull ${{ secrets.DOCKER_USERNAME }}/fe-komik:${{ github.sha }}
+            docker stop fe-komik || true
+            docker rm fe-komik || true
             # Menggunakan port 8085 untuk aplikasi Next.js
-            docker run -d --name next-manga -p 8085:8085 -v /root/next-manga/.env:/home/node/app/.env ${{ secrets.DOCKER_USERNAME }}/next-manga:${{ github.sha }}
+            docker run -d --name fe-komik -p 8087:8087 -v /root/fe-komik/.env:/home/node/app/.env ${{ secrets.DOCKER_USERNAME }}/fe-komik:${{ github.sha }}
