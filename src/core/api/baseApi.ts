@@ -3,6 +3,7 @@ import {
   getFetchData,
   patchFetchData,
   postFetchData,
+  postFetchLogin,
   putFetchData,
 } from "@/src/core/api/api";
 import {
@@ -18,14 +19,33 @@ export const post = async (path: string, body: Record<string, any>) => {
   // callToastLoading(date.getTime().toString());
   const resp = await postFetchData(path, body);
 
-  // callToastDone(date.getTime().toString());
+  // console.log('Response BaseApi', resp);
+
+  // callToastDone(resp.message);
 
   if (resp.data === null) {
     callToastError(resp.message);
 
     return null;
   }
-  // callToastSuccess(resp.message);
+  callToastSuccess(resp.message);
+
+  return resp.data;
+};
+export const postLogin = async (path: string, body: Record<string, any>) => {
+  const date = new Date();
+
+  // callToastLoading(date.getTime().toString());
+  const resp = await postFetchLogin(path, body);
+
+  callToastDone(resp.message);
+
+  if (resp.data === null) {
+    callToastError(resp.message);
+
+    return null;
+  }
+  callToastSuccess(resp.message);
 
   return resp.data;
 };

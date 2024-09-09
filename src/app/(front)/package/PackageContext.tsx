@@ -1,6 +1,5 @@
-// context/PackageContext.tsx
 "use client";
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface PackageType {
   id: number;
@@ -19,9 +18,11 @@ const PackageContext = createContext<PackageContextType | undefined>(undefined);
 
 export const usePackage = (): PackageContextType => {
   const context = useContext(PackageContext);
+
   if (!context) {
-    throw new Error('usePackage must be used within a PackageProvider');
+    throw new Error("usePackage must be used within a PackageProvider");
   }
+
   return context;
 };
 
@@ -29,12 +30,16 @@ interface PackageProviderProps {
   children: ReactNode;
 }
 
-export const PackageProvider: React.FC<PackageProviderProps> = ({ children }) => {
-  const [selectedPackage, setSelectedPackage] = useState<PackageType | null>(null);
+export const PackageProvider: React.FC<PackageProviderProps> = ({
+  children,
+}) => {
+  const [selectedPackage, setSelectedPackage] = useState<PackageType | null>(
+    null,
+  );
 
   // Log the selected package to debug
   React.useEffect(() => {
-    console.log("Selected Package updated:", selectedPackage);
+    // console.log("Selected Package updated:", selectedPackage);
   }, [selectedPackage]);
 
   return (

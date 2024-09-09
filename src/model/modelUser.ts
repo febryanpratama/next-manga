@@ -1,13 +1,28 @@
+// To parse this data:
+//
+//   import { Convert, ModelUser } from "./file";
+//
+//   const modelUser = Convert.toModelUser(json);
+
 export interface ModelUser {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  gender: string;
-  image: string;
+  errorCode: number;
+  message: string;
+  result: Result;
+}
+
+export interface Result {
   token: string;
-  refreshToken: string;
+  user: User;
+}
+
+export interface User {
+  active: boolean;
+  name: string;
+  address: string;
+  email: string;
+  avatar: string;
+  phone: string;
+  username: string;
 }
 
 // Converts JSON strings to/from your types
