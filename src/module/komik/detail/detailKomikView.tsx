@@ -87,7 +87,7 @@ const DetailKomikService = () => {
             <div className='overflow-auto h-[500px] hide-scrollbar'>
               <div className='grid mt-24 grid-cols-1 gap-4'>
                   {detailKomik?.listChapter.map((item:any, index:number) => (
-                    <Link key={index} href={`/komik/detail/${item.url}`} className='flex justify-between items-center px-4 py-2 bg-fixed rounded-2xl'>
+                    <Link key={index} href={`/komik/${slug}/${item.url}`} className='flex justify-between items-center px-4 py-2 bg-fixed rounded-2xl'>
                       <div className='text-lg text-textwhiteblack font-semibold'>
                         {item.title}
                       </div>
