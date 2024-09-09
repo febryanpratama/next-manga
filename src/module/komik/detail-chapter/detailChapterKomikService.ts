@@ -1,26 +1,36 @@
 "use client";
+import { getDetailChapterManga } from "@/src/repository/manga/mangaRepository";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useDetailChapterKomikService = () => {
+    const pathname = usePathname(); // Get the full path of the URL
 
-    const pathname = usePathname();
-    const slug = pathname.split('/').pop(); // Extracts the last part of the path as the slug
+    const pathParts = pathname.split('/'); // Split the path into segments
+    const slugKomik = pathParts[2]; // Get the third segment for 'slug-komik'
+    const slugChapter = pathParts[3]; 
 
-    // console.log(slug);
     const fetchData = async () => {
-        // const 
-    }
+        const resp = await getDetailChapterManga(slugKomik, slugChapter);
+        // Fetch data logic here
 
-    useEffect(()=>{
-        // console.log("slug",slug);
-        fetchData();
-    },[]);
+        if(resp === null){
+            // Handle error
+            return;
+        }
+
+        console.log('Data:', resp);
+    };
+
+
+    useEffect(() => {
+        fetchData(); // Fetch data whenever the component mounts
+    }, [slugKomik, slugChapter]); // Trigger fetching when slugs are set
 
     return {
-        // 
-        slug,
-    }
-}
+        slugKomik,
+        slugChapter,
+    };
+};
 
 export default useDetailChapterKomikService;

@@ -17,7 +17,10 @@ interface ImageType {
 }
 
 const DetailChapterKomikView = () => {
-  const {slug} = useDetailChapterKomikService();
+  const {
+    slugKomik,
+    slugChapter,
+  } = useDetailChapterKomikService();
     const detailChapterJson : ChapterDetailType  = {
         "nextChapter": "/shut-up-evil-dragon-i-dont-want-to-raise-a-child-with-you-anymore-chapter-1/",
         "prevChapter": "",
