@@ -6,39 +6,50 @@ import { Input } from "@nextui-org/input";
 import Image from "next/image";
 
 export const LoginView = () => {
-  const { submit } = LoginService();
-
+  const {
+    username,
+    setUsername,
+    password,
+    setPassword,
+    submit,
+  } = LoginService();
 
   return (
-    <div className='grid grid-cols-2'>
-      
-        <div className='h-screen w-full flex items-center justify-center'>
-            <div className='w-2/4'>
-                <div className='flex justify-start'>
-                    <Image src='/images/logo-astra.png' alt='' width={200} height={200} />
-                </div>
-                <div>
-                    <div className='text-xl font-bold text-gray-500 text-center'>Masukkan Username dan Password yang telah terdaftar</div>
-                    <form className='flex flex-col' >
-                        <input type='text' placeholder='Username' className='border-2 border-gray-500 rounded-md p-2 mt-4' />
-                        <input type='password' placeholder='Password' className='border-2 border-gray-500 rounded-md p-2 mt-4' />
-                        <div className='flex justify-center'>
-                            <button type='submit' className='w-1/3 bg-blue-400 text-white rounded-md p-2 mt-2' >Login</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div className='h-screen relative'>
-            {/* Background Image */}
-            <Image src='/images/bg-login.png' alt='' layout='fill' objectFit='cover' />
-            
-            {/* Centered Large Logo */}
-            <div className='absolute inset-0 flex items-center justify-center'>
-                <Image src='/images/logo-astra-large.png' alt='' width={600} height={600} />
-            </div>
-        </div>
+    <div className="flex flex-col h-screen justify-center items-center">
+      <div className="flex flex-col justify-center items-center w-1/3 border-1 border-gray-600 shadow-lg rounded-3xl py-5">
+        <h1 className="text-4xl font-bold text-white">NextManga</h1>
+        <form className="flex flex-col w-2/4 gap-4 py-8">
+          <Input 
+              type="text" 
+              label="Username" 
+              variant='bordered'
+              value={username}
+              required
+              onChange={(e)=>{
+                setUsername(e.target.value);
+              }}
+            />
+          <Input 
+              type="password" 
+              label="Password" 
+              variant='bordered'
+              value={password}
+              required
+              onChange={(e)=>{
+                setPassword(e.target.value);
+              }}
+            />
+          <Button
+            color='default' 
+            size='lg' 
+            variant='ghost'
+            onClick={()=> submit()}
+          >
+            Submit
+          </Button>
+        </form>
+      </div>
+      {/* Your login form or content */}
     </div>
-
   );
 };

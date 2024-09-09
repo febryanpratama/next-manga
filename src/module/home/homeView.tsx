@@ -107,7 +107,7 @@ const HomeView = () => {
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
                 {komik.map((item: any, index: number) => (
                     <div key={index} className="relative">
-                        <Link href={`/manga/${item.id}`}>
+                        <Link href={`/komik/${item.id}`}>
                             <Image src={item.urlGambar} alt='' className="object-fill w-full" loading='lazy' radius="lg" height={500} />
                             <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
                             <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">

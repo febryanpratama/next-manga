@@ -1,6 +1,6 @@
 import {Image} from "@nextui-org/image";
 import React from 'react'
-import HomeView from "../module/home/homeView";
+import HomeView from "../../module/home/homeView";
 
 const page = () => {
 

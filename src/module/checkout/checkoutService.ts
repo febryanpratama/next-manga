@@ -1,5 +1,5 @@
 "use client"
-import { usePackage } from "@/src/app/package/PackageContext";
+import { usePackage } from "@/src/app/(front)/package/PackageContext";
 import { checkValue } from "@/src/repository/auth/authRepository";
 import { getDataPaymentChannel } from "@/src/repository/payment/paymentRepository"
 import { useEffect, useState } from "react"
