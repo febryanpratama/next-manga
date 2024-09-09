@@ -20,6 +20,7 @@ enum Method {
   DELETE = "DELETE",
   HEAD = "HEAD",
 }
+
 const cookieStore = cookies(); // Re-initialize here to ensure fresh access
 
 // Function to construct headers with authorization
@@ -40,8 +41,6 @@ const fetchData = async (
 ): Promise<any> => {
   const base = `${baseUrl()}${path}`;
   const headers = await header();
-
-  console.log("Fetch Data Header", headers);
 
   console.debug("fetching data from", base);
   console.debug("headers", headers);
@@ -86,6 +85,7 @@ const fetchData = async (
     };
   }
 };
+
 export const postFetchData = async (
   path: string,
   body: Record<string, any>,
@@ -105,7 +105,8 @@ export const getFetchData = async (
 ): Promise<ReturnResult> => {
   const resp = await fetchData(path, body, Method.GET);
 
-  console.log("Base Api Resp",resp);
+  console.log("Base Api Resp", resp);
+
   return {
     data: resp.data.result,
     message: resp.message,
@@ -155,17 +156,17 @@ export const deleteFetchData = async (
   };
 };
 
-
 export const postFetchLogin = async (
   path: string,
   body: Record<string, any>,
 ): Promise<ReturnResult> => {
   const resp = await fetchData(path, body, Method.POST);
 
-  if(resp.data !== null){
+  if (resp.data !== null) {
     // console.log("response", resp.data);
-    if(resp.data.result !== null){
+    if (resp.data.result !== null) {
       const token = resp.data.result.token;
+
       cookieStore.set("token", token, {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       });
@@ -177,4 +178,4 @@ export const postFetchLogin = async (
     message: resp.message,
     statusCode: resp.statusCode,
   };
-}
+};

@@ -1,14 +1,14 @@
 "use client";
-import React from 'react'
-import CheckoutView from '@/src/module/checkout/checkoutView';
+import React from "react";
 
+import CheckoutView from "@/src/module/checkout/checkoutView";
 
 const page = () => {
   return (
     <>
-        <CheckoutView />
+      <CheckoutView />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 import { login } from "@/src/repository/auth/authRepository";
-import { useRouter } from "next/navigation";
 
 const LoginService = () => {
   const [username, setUsername] = useState("");
@@ -10,13 +9,12 @@ const LoginService = () => {
   const [validEmail, setValidEmail] = useState(false);
   const router = useRouter();
 
-
   const submit = async () => {
     const resp = await login(username, password);
 
     console.log(resp);
 
-    if(resp !== null){
+    if (resp !== null) {
       router.push("/");
     }
   };

@@ -37,5 +37,4 @@ const useDetailChapterKomikService = () => {
         detailChapter
     };
 };
-
 export default useDetailChapterKomikService;

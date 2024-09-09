@@ -1,10 +1,9 @@
-import DetailChapterKomikView from '@/src/module/komik/detail-chapter/detailChapterKomikView'
-import React from 'react'
+import React from "react";
+
+import DetailChapterKomikView from "@/src/module/komik/detail-chapter/detailChapterKomikView";
 
 const page = () => {
-  return (
-    <DetailChapterKomikView />
-  )
-}
+  return <DetailChapterKomikView />;
+};
 
-export default page
+export default page;

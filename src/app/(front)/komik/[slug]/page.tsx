@@ -1,12 +1,13 @@
-import DetailKomikView from '@/src/module/komik/detail/detailKomikView'
-import React from 'react'
+import React from "react";
+
+import DetailKomikView from "@/src/module/komik/detail/detailKomikView";
 
 const page = () => {
   return (
     <div>
-        <DetailKomikView />
+      <DetailKomikView />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
