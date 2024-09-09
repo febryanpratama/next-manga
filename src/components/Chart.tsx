@@ -1,12 +1,7 @@
-import React, { useRef } from "react";
+import React from "react";
 
 const Chart = () => {
+  return <>x</>;
+};
 
-  return (
-    <>
-      x
-    </>
-  )
-}
-
-export default Chart
+export default Chart;

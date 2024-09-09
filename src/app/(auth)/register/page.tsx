@@ -1,6 +1,4 @@
 "use client";
-// import { title } from "@/src/components/primitives";
-import { LoginView } from "@/src/module/auth/login/loginView";
 import RegisterView from "@/src/module/auth/register/registerView";
 
 export default function LoginPage() {
