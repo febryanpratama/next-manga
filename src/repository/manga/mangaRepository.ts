@@ -1,5 +1,5 @@
 import { get } from "@/src/core/api/baseApi"
-import { ConvertToModelDetailChapterKomik } from "@/src/model/modelDetailChapterKomik";
+import { ConvertToModelDetailChapterKomik, ModelDetailChapterKomik } from "@/src/model/modelDetailChapterKomik";
 import { ConvertToModelDetailKomik, ModelDetailKomik, ResultDetailKomik } from "@/src/model/modelDetailKomik";
 
 export const getDetailManga = async (slug: string): Promise<ModelDetailKomik | null> => {
@@ -13,7 +13,7 @@ export const getDetailManga = async (slug: string): Promise<ModelDetailKomik | n
     
 }
 
-export const getDetailChapterManga = async(slugkomik: string, slugchapter: string): Promise<any | null> =>{
+export const getDetailChapterManga = async(slugkomik: string, slugchapter: string): Promise<ModelDetailChapterKomik | null> =>{
     // const resp = await get('/')
     const resp = await get('/komik/chapter/' + slugkomik + '/' + slugchapter);
 

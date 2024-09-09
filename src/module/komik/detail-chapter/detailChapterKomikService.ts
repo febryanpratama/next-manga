@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const useDetailChapterKomikService = () => {
+    const [detailChapter, setDetailChapter] = useState<any | null>(null);
+
     const pathname = usePathname(); // Get the full path of the URL
 
     const pathParts = pathname.split('/'); // Split the path into segments
@@ -19,17 +21,20 @@ const useDetailChapterKomikService = () => {
             return;
         }
 
-        console.log('Data:', resp);
+        console.log("Detail Chapter", resp);
+
+        setDetailChapter(resp);
     };
 
 
     useEffect(() => {
         fetchData(); // Fetch data whenever the component mounts
-    }, [slugKomik, slugChapter]); // Trigger fetching when slugs are set
+    }, []); // Trigger fetching when slugs are set
 
     return {
         slugKomik,
         slugChapter,
+        detailChapter
     };
 };
 
