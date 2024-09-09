@@ -34,7 +34,7 @@ export const PackageProvider: React.FC<PackageProviderProps> = ({ children }) =>
 
   // Log the selected package to debug
   React.useEffect(() => {
-    console.log("Selected Package updated:", selectedPackage);
+    // console.log("Selected Package updated:", selectedPackage);
   }, [selectedPackage]);
 
   return (

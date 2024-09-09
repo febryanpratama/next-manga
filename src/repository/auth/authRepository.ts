@@ -1,21 +1,15 @@
 import { ConvertModelUser, ModelUser } from "@/src/model/modelUser";
-import { post } from "@/src/core/api/baseApi";
+import { post, postLogin } from "@/src/core/api/baseApi";
 import { ConvertCheckModel, ModelCheck } from "@/src/model/modelCheck";
 
 export const login = async (
-  email: string,
+  username: string,
   password: string,
 ): Promise<ModelUser | null> => {
-  const resp = await post("/auth/login", {
-    username: email,
+  const resp = await postLogin("/auth/login", {
+    username: username,
     password: password,
-    expiresInMins: 30,
   });
-  //   await post("/auth/login", {
-  //   username: email,
-  //   password: password,
-  //   expiresInMins: 30,
-  // });
 
   if (resp === null) {
     return null;

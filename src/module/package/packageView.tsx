@@ -5,7 +5,7 @@ import React from 'react';
 import { FaCheck } from "react-icons/fa";
 import PackageService from './packageService';
 import Link from 'next/link';
-import { usePackage } from '@/src/app/package/PackageContext';
+import { usePackage } from '@/src/app/(front)/package/PackageContext';
 
 const PackageView: React.FC = () => {
   const { listPackage } = PackageService();

@@ -1,4 +1,4 @@
-import { usePackage } from '@/src/app/package/PackageContext';
+import { usePackage } from '@/src/app/(front)/package/PackageContext';
 import { Button } from '@nextui-org/button'
 import { Input } from '@nextui-org/input'
 import React from 'react'
