@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
+
 import useDetailChapterKomikService from "./detailChapterKomikService";
 
 interface ImageType {
@@ -17,7 +19,8 @@ interface ChapterDetailType {
 }
 
 const DetailChapterKomikView = () => {
-  const { slugKomik, slugChapter, detailChapter } = useDetailChapterKomikService();
+  const { slugKomik, slugChapter, detailChapter } =
+    useDetailChapterKomikService();
 
   if (!detailChapter) {
     // Display a loading indicator or a placeholder if detailChapter is null
@@ -28,23 +31,37 @@ const DetailChapterKomikView = () => {
     <div className="flex flex-col justify-center items-center">
       <div className="w-2/4 px-4 mt-10 h-auto">
         <div className="flex justify-between">
-          <div className="border-1 border-primary px-4 py-2 rounded-2xl">
-            Chapter Sebelumnya
-          </div>
-          <div className="border-1 border-primary px-4 py-2 rounded-2xl">
-            Chapter Selanjutnya
-          </div>
+          <Link
+            href={`/komik/${slugKomik}/${detailChapter?.prevChapter || "#"}`} // Fallback href to prevent errors
+            style={{
+              pointerEvents: detailChapter?.prevChapter ? "auto" : "none",
+            }}
+          >
+            <div className={`border-1 border-primary px-4 py-2 rounded-2xl`}>
+              Chapter Sebelumnya
+            </div>
+          </Link>
+          <Link
+            href={`/komik/${slugChapter}/${detailChapter?.nextChapter || "#"}`} // Fallback href to prevent errors
+            style={{
+              pointerEvents: detailChapter?.nextChapter ? "auto" : "none",
+            }}
+          >
+            <div className="border-1 border-primary px-4 py-2 rounded-2xl">
+              Chapter Selanjutnya
+            </div>
+          </Link>
         </div>
         <div className="flex flex-col mt-10">
           {detailChapter.listImage.map((item: ImageType, index: number) => (
             <div key={index} className="relative w-full h-auto">
               <Image
-                src={item.image}
                 alt={`Picture ${index}`}
                 className="rounded-2xl border-2 border-fixed"
-                layout="responsive"
-                width={500}
                 height={700}
+                layout="responsive"
+                src={item.image}
+                width={500}
               />
             </div>
           ))}
