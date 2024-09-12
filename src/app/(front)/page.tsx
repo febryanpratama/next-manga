@@ -1,14 +1,13 @@
-import {Image} from "@nextui-org/image";
-import React from 'react'
+import React from "react";
+
 import HomeView from "../../module/home/homeView";
 
 const page = () => {
-
   return (
     <>
-        <HomeView />
+      <HomeView />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

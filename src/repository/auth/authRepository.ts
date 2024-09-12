@@ -18,7 +18,7 @@ export const login = async (
   return ConvertModelUser.toModelUser(JSON.stringify(resp));
 };
 
-export const register = async(
+export const register = async (
   email: string,
   username: string,
   password: string,
@@ -34,9 +34,9 @@ export const register = async(
   }
 
   return ConvertModelUser.toModelUser(JSON.stringify(resp));
-}
+};
 
-export const checkValue = async(
+export const checkValue = async (
   key: string,
   value: string,
 ): Promise<ModelCheck | null> => {
@@ -45,11 +45,9 @@ export const checkValue = async(
     value: value,
   });
 
-  console.log("Response Repository",resp)
-
   if (resp === null) {
     return null;
   }
 
   return ConvertCheckModel.toGetCheckResponse(JSON.stringify(resp));
-}
+};

@@ -6,32 +6,32 @@
 
 export interface ModelUser {
   errorCode: number;
-  message:   string;
-  result:    Result;
+  message: string;
+  result: Result;
 }
 
 export interface Result {
   token: string;
-  user:  User;
+  user: User;
 }
 
 export interface User {
-  active:   boolean;
-  name:     string;
-  address:  string;
-  email:    string;
-  avatar:   string;
-  phone:    string;
+  active: boolean;
+  name: string;
+  address: string;
+  email: string;
+  avatar: string;
+  phone: string;
   username: string;
 }
 
 // Converts JSON strings to/from your types
 export class ConvertModelUser {
   public static toModelUser(json: string): ModelUser {
-      return JSON.parse(json);
+    return JSON.parse(json);
   }
 
   public static modelUserToJson(value: ModelUser): string {
-      return JSON.stringify(value);
+    return JSON.stringify(value);
   }
 }

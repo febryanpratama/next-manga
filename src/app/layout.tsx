@@ -1,8 +1,5 @@
-// app/layout.tsx
-
 import "@/src/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 import React from "react";
 
@@ -10,9 +7,6 @@ import { Providers } from "./providers";
 
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
-import { NavigationBar } from "../components/NavigationBar";
-import ToastProvider from "@/src/components/toast/toastProvider";
-import { PackageProvider } from "./(front)/package/PackageContext";
 
 export const metadata: Metadata = {
   title: {
@@ -48,9 +42,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
-            {children}
-          </div>
+          <div className="relative flex flex-col h-screen">{children}</div>
         </Providers>
       </body>
     </html>
