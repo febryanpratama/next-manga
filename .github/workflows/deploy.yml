@@ -49,5 +49,8 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/fe-komik:${{ github.sha }}
             docker stop fe-komik || true
             docker rm fe-komik || true
-            # Menggunakan port 8085 untuk aplikasi Next.js
-            docker run -d --name fe-komik -p 8087:8087 -v /root/fe-komik/.env:/home/node/app/.env ${{ secrets.DOCKER_USERNAME }}/fe-komik:${{ github.sha }}
+            # Menggunakan port 8087 untuk aplikasi Next.js
+            docker run -d --name fe-komik -p 8087:8087 \
+            -e BASE_URL=https://api-manga.tengkuangonet.my.id \
+            -e JWT_SECRET=secret \
+            ${{ secrets.DOCKER_USERNAME }}/fe-komik:${{ github.sha }}
