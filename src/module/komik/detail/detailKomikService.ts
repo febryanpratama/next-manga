@@ -9,6 +9,7 @@ const useDetailKomikService = () => {
   const pathname = usePathname();
   const slug = pathname.split("/").pop(); // Extracts the last part of the path as the slug
   const [detailKomik, setDetailKomik] = useState<any | null>(null);
+  const [isSkeleton, setIsSkeleton] = useState<boolean>(false);
 
   const fetchData = async () => {
     if (!slug) return; // Do not fetch if slug is not available
@@ -16,10 +17,10 @@ const useDetailKomikService = () => {
     const resp = await getDetailManga(slug || "not-found");
 
     if (resp === null) {
-      // Handle error
-      return;
+      return null;
     }
-    setDetailKomik(resp);
+    setDetailKomik(resp.result);
+    setIsSkeleton(true);
   };
 
   useEffect(() => {
@@ -29,6 +30,7 @@ const useDetailKomikService = () => {
   return {
     slug,
     detailKomik,
+    isSkeleton,
   };
 };
 

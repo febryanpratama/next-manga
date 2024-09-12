@@ -1,7 +1,12 @@
-import { get } from "@/src/core/api/baseApi"
-import { ConvertToModelDetailChapterKomik, ModelDetailChapterKomik } from "@/src/model/modelDetailChapterKomik";
-import { ConvertToModelDetailKomik, ModelDetailKomik, ResultDetailKomik } from "@/src/model/modelDetailKomik";
-
+import { get, post } from "@/src/core/api/baseApi";
+import {
+  ConvertToModelDetailChapterKomik,
+  ModelDetailChapterKomik,
+} from "@/src/model/modelDetailChapterKomik";
+import {
+  ConvertToModelDetailKomik,
+  ModelDetailKomik,
+} from "@/src/model/modelDetailKomik";
 
 export const getDetailManga = async (
   slug: string,
@@ -12,18 +17,23 @@ export const getDetailManga = async (
     return null;
   }
 
-  return ConvertToModelDetailKomik.toModelDetailKomik(
-    JSON.stringify(resp.data),
-  );
+  return ConvertToModelDetailKomik.toModelDetailKomik(JSON.stringify(resp));
 };
 
-export const getDetailChapterManga = async(slugkomik: string, slugchapter: string): Promise<ModelDetailChapterKomik | null> =>{
-    // const resp = await get('/')
-    const resp = await get('/komik/chapter/' + slugkomik + '/' + slugchapter);
+export const getDetailChapterManga = async (
+  slugkomik: string,
+  slugchapter: string,
+): Promise<ModelDetailChapterKomik | null> => {
+  // const resp = await get('/')
+  const resp = await post("/komik/chapter/" + slugkomik + "/" + slugchapter, {
+    title: "string",
+  });
 
-    if(resp === null){
-        return null;
-    }
+  if (resp === null) {
+    return null;
+  }
 
-    return ConvertToModelDetailChapterKomik.toModelDetailChapterKomik(JSON.stringify(resp.data));
-}
+  return ConvertToModelDetailChapterKomik.toModelDetailChapterKomik(
+    JSON.stringify(resp),
+  );
+};

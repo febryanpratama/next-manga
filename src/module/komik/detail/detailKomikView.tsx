@@ -2,43 +2,13 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Skeleton } from "@nextui-org/skeleton";
+import { Button } from "@nextui-org/button";
 
 import useDetailMangaService from "./detailKomikService";
 
 const DetailKomikService = () => {
-  const { slug, detailKomik } = useDetailMangaService();
-
-  // const dataJson = {
-  //   "tumbnail": "https://komikindo.tv/wp-content/uploads/2024/09/Komik-Shut-Up-Evil-Dragon-I-dont-want-to-raise-a-child-with-you-anymore-236x295.jpg",
-  //   "rating": "",
-  //   "dataDetail": {
-  //     "sinopsis": "Manhua Shut Up, Evil Dragon, I Don’t Want to Raise a Child With You Anymore yang dibuat oleh komikus bernama\nMilkshake tail sauce ini bercerita tentang\nSetelah dikalahkan dan ditangkap, pembunuh naga Leon menjadi tawanan Ratu Naga Perak. Dengan kesadaran akan kematian, ia menggunakan sihir terlarang untuk mengutuk ratu, tetapi tanpa diduga, ratu kehilangan kendali. Ia berpikir bahwa ini akan membuat ratu hidup dengan rasa malu selama sisa hidupnya, dan itu akan sepadan dengan misi pembunuh naga. Namun dua tahun kemudian, ketika Leon membuka matanya, di sebelahnya ada seorang gadis naga kecil dengan ekor...",
-  //     "status": "Berjalan",
-  //     "pengarang": "Milkshake tail sauce",
-  //     "ilustrator": "SF Light Novels (SF轻小说)",
-  //     "jenisKomik": "Manhua",
-  //     "jumlahPembaca": "130 orang",
-  //     "judul": "闭嘴恶龙我不想再跟你带孩子了, Shut Up, Malevolent Dragon! I Don’t Want to Have Any More Children With You, Bi Zui E Long Wo Buxiang Zai Gen Ni Dai Haizile"
-  //   },
-  //   "listChapter": [
-  //     {
-  //       "title": "Chapter 2",
-  //       "url": "/shut-up-evil-dragon-i-dont-want-to-raise-a-child-with-you-anymore-chapter-2/",
-  //       "releaseDate": "22 menit yang lalu"
-  //     },
-  //     {
-  //       "title": "Chapter 1",
-  //       "url": "/shut-up-evil-dragon-i-dont-want-to-raise-a-child-with-you-anymore-chapter-1/",
-  //       "releaseDate": "22 menit yang lalu"
-  //     },
-  //     {
-  //       "title": "Chapter 00",
-  //       "url": "/shut-up-evil-dragon-i-dont-want-to-raise-a-child-with-you-anymore-chapter-00/",
-  //       "releaseDate": "22 menit yang lalu"
-  //     }
-  //   ],
-  //   "status": "READING"
-  // };
+  const { slug, detailKomik, isSkeleton } = useDetailMangaService();
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -46,45 +16,65 @@ const DetailKomikService = () => {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="w-full md:w-2/3 p-4 md:h-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 px-2 py-2">
-              <div className="md:col-span-1 items-center mx-auto ">
-                <Image
-                  alt="Picture of the author"
-                  className="rounded-2xl border-2 border-fixed"
-                  height={295}
-                  src={detailKomik?.tumbnail || ""}
-                  width={236}
-                />
-              </div>
-              <div className="md:col-span-2 ">
-                <div className="text-2xl font-bold text-justify">
-                  {detailKomik?.dataDetail.judul}
+              {/* Image Skeleton Loader */}
+              <Skeleton
+                className="md:col-span-1 flex flex-col items-center justify-center mx-auto"
+                isLoaded={!!detailKomik}
+              >
+                {detailKomik ? (
+                  <Image
+                    alt="Thumbnail"
+                    className="rounded-2xl border-2 border-fixed"
+                    height={295}
+                    src={detailKomik.tumbnail}
+                    width={236}
+                  />
+                ) : (
+                  <div className="rounded-2xl border-2 border-fixed bg-gray-200 h-[295px] w-[236px]" />
+                )}
+
+                {/* Center the button */}
+                <div className="flex justify-center w-full">
+                  <Button className="mt-5" color={"primary"} variant={"ghost"}>
+                    + Add to Library
+                  </Button>
                 </div>
-                <div className="flex justify-start mt-8 gap-4">
-                  <div className="px-4 text-primary rounded-2xl font-semibold py-2 border-1 border-primary">
-                    {detailKomik?.dataDetail.jenisKomik}
+              </Skeleton>
+
+              <div className="md:col-span-2 mt-10 md:mt-0">
+                <Skeleton isLoaded={!!detailKomik}>
+                  <div className="text-2xl font-bold text-justify">
+                    {detailKomik?.dataDetail.judul || "Loading title..."}
                   </div>
-                  <div className="px-4 text-secondary rounded-2xl font-semibold py-2 border-1 border-secondary">
-                    {detailKomik?.dataDetail.status}
+                </Skeleton>
+                <Skeleton className="mt-4" isLoaded={!!detailKomik}>
+                  <div className="flex justify-start mt-8 gap-4">
+                    <div className="px-4 text-primary rounded-2xl font-semibold py-2 border-1 border-primary">
+                      {detailKomik?.dataDetail.jenisKomik || "Loading..."}
+                    </div>
+                    <div className="px-4 text-secondary rounded-2xl font-semibold py-2 border-1 border-secondary">
+                      {detailKomik?.dataDetail.status || "Loading..."}
+                    </div>
+                    <div className="px-4 text-primary rounded-2xl font-semibold py-2 border-1 border-primary">
+                      {detailKomik?.dataDetail.ilustrator || "Loading..."}
+                    </div>
+                    <div className="px-4 text-secondary rounded-2xl font-semibold py-2 border-1 border-secondary">
+                      {detailKomik?.dataDetail.jumlahPembaca || "Loading..."}
+                    </div>
                   </div>
-                  <div className="px-4 text-primary rounded-2xl font-semibold py-2 border-1 border-primary">
-                    {detailKomik?.dataDetail.ilustrator}
-                  </div>
-                  <div className="px-4 text-secondary rounded-2xl font-semibold py-2 border-1 border-secondary">
-                    {detailKomik?.dataDetail.jumlahPembaca}
-                  </div>
-                </div>
+                </Skeleton>
                 <hr className="mt-5" />
-                <div className="text-justify mt-8">
-                  {detailKomik?.dataDetail.sinopsis}
-                </div>
+                <Skeleton className="mt-4" isLoaded={!!detailKomik}>
+                  <div className="text-justify mt-8">
+                    {detailKomik?.dataDetail.sinopsis || "Loading synopsis..."}
+                  </div>
+                </Skeleton>
               </div>
             </div>
           </div>
 
-          <div className="w-full relative md:w-1/3  md:h-auto mt-8">
-            <div className="absolute text-2xl top-0 flex w-full bg-fixed rounded-t-xl h-20 py-5 justify-start">
-              {/*  */}
-            </div>
+          <div className="w-full relative md:w-1/3 md:h-auto mt-8">
+            <div className="absolute text-2xl top-0 flex w-full bg-fixed rounded-t-xl h-20 py-5 justify-start" />
             <div className="absolute text-2xl top-0 flex w-full py-5 justify-start">
               <div className="text-textwhiteblack font-bold tracking-widest opacity-100 px-2">
                 List Chapter
@@ -92,22 +82,28 @@ const DetailKomikService = () => {
             </div>
 
             <div className="overflow-auto h-[500px] hide-scrollbar">
-              <div className="grid mt-24 grid-cols-1 gap-4">
-                {detailKomik?.listChapter.map((item: any, index: number) => (
-                  <Link
-                    key={index}
-                    className="flex justify-between items-center px-4 py-2 bg-fixed rounded-2xl"
-                    href={`/komik/${slug}/${item.url}`}
-                  >
+              <Skeleton className="mt-24" isLoaded={!!detailKomik}>
+                <div className="grid grid-cols-1 gap-4">
+                  {detailKomik?.listChapter.map((item: any, index: number) => (
+                    <Link
+                      key={index}
+                      className="flex justify-between items-center px-4 py-2 bg-fixed rounded-2xl"
+                      href={`/komik/${slug}/${item.url}`}
+                    >
+                      <div className="text-lg text-textwhiteblack font-semibold">
+                        {item.title}
+                      </div>
+                      <div className="text-sm text-textwhiteblack font-semibold">
+                        {item.releaseDate}
+                      </div>
+                    </Link>
+                  )) || (
                     <div className="text-lg text-textwhiteblack font-semibold">
-                      {item.title}
+                      Loading chapters...
                     </div>
-                    <div className="text-sm text-textwhiteblack font-semibold">
-                      {item.releaseDate}
-                    </div>
-                  </Link>
-                ))}
-              </div>
+                  )}
+                </div>
+              </Skeleton>
             </div>
           </div>
         </div>

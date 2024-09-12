@@ -7,9 +7,8 @@ import {
   ReturnResult,
 } from "@/src/core/api/interface/InterfaceResponseResult";
 
-// Base URL for API requests
 function baseUrl(): string {
-  return process.env.BASE_URL ?? "";
+  return "https://api-manga.tengkuangonet.my.id/api";
 }
 
 enum Method {
@@ -21,19 +20,73 @@ enum Method {
   HEAD = "HEAD",
 }
 
-const cookieStore = cookies(); // Re-initialize here to ensure fresh access
+const cookieStore = cookies();
 
-// Function to construct headers with authorization
 const header = async (): Promise<HeadersInit | undefined> => {
-  const token = cookieStore.get("token"); // Get token from cookies
+  const token = await cookieStore.get("token");
 
   return {
-    Authorization: `Bearer ${token?.value ?? ""}`, // Handle missing token
+    Authorization: `Bearer ${token?.value}`,
     "Content-Type": "application/json",
   };
 };
 
-// Fetch data from an API endpoint
+// const fetchData = async (
+//   path: string,
+//   body: Record<string, any>,
+//   method: Method,
+// ): Promise<any> => {
+//   const base = `${baseUrl()}${path}`;
+
+//   const headers = await header();
+
+//   console.debug("fetching data from", base);
+//   console.debug("headers", headers);
+//   console.debug("method", method);
+//   console.debug("body", body);
+//   console.debug("====================================");
+
+//   return fetch(base, {
+//     method: method,
+//     headers: headers,
+//     body: JSON.stringify(body),
+//   })
+//     .then(async (res) => {
+//       console.debug("response status", res.status);
+//       const [respJson] = await Promise.all([res.json()]);
+
+//       if (res.status == 200 || res.status == 201) {
+//         console.debug("response body", respJson);
+
+//         if (respJson.token !== null) {
+//           cookieStore.set("token", respJson.token, {
+//             expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+//           });
+//         }
+
+//         return {
+//           message: respJson.message ?? "Success",
+//           statusCode: res.status,
+//           data: respJson,
+//         };
+//       } else if (res.status == 400) {
+//         // console.log("ERROR 400")
+//         throw new ErrorData(respJson.message, res.status);
+//       } else {
+//         throw new ErrorData("Network response was not ok", 500);
+//       }
+//     })
+//     .catch((error: ErrorData) => {
+//       console.debug("error", error.message);
+
+//       return {
+//         message: error.message,
+//         statusCode: error.status,
+//         data: null,
+//       };
+//     });
+// };
+
 const fetchData = async (
   path: string,
   body: Record<string, any>,
@@ -41,6 +94,8 @@ const fetchData = async (
 ): Promise<any> => {
   const base = `${baseUrl()}${path}`;
   const headers = await header();
+
+  console.log("Fetch Data Header", headers);
 
   console.debug("fetching data from", base);
   console.debug("headers", headers);
@@ -58,32 +113,44 @@ const fetchData = async (
     fetchOptions.body = JSON.stringify(body);
   }
 
-  try {
-    const response = await fetch(base, fetchOptions);
-    const respJson = await response.json();
+  return fetch(base, fetchOptions)
+    .then(async (res) => {
+      console.debug("response status", res.status);
+      const [respJson] = await Promise.all([res.json()]);
 
-    console.debug("response status", response.status);
+      if (res.status === 200 || res.status === 201) {
+        console.debug("response body", respJson);
 
-    if (response.ok) {
-      console.debug("response body status 200", respJson);
+        // if (respJson.token !== null) {
+        //   cookieStore.set("token", respJson.token, {
+        //     expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        //   });
+        // }
+
+        return {
+          message: respJson.message ?? "Success",
+          statusCode: res.status,
+          data: respJson,
+        };
+      } else if (res.status === 400) {
+        throw new ErrorData(respJson.message, res.status);
+      } else if (res.status === 404) {
+        throw new ErrorData(respJson.message, 404);
+      } else if (res.status === 423) {
+        throw new ErrorData(respJson.message, 423);
+      } else {
+        throw new ErrorData("Network response was not ok", 500);
+      }
+    })
+    .catch((error: ErrorData) => {
+      console.debug("error", error.message);
 
       return {
-        message: respJson.message ?? "Success",
-        statusCode: response.status,
-        data: respJson,
+        message: error.message,
+        statusCode: error.status,
+        data: null,
       };
-    } else {
-      throw new ErrorData(respJson.message || "Error", response.status);
-    }
-  } catch (error: any) {
-    console.debug("error", error.message);
-
-    return {
-      message: error.message,
-      statusCode: error.status ?? 500,
-      data: null,
-    };
-  }
+    });
 };
 
 export const postFetchData = async (
@@ -105,10 +172,8 @@ export const getFetchData = async (
 ): Promise<ReturnResult> => {
   const resp = await fetchData(path, body, Method.GET);
 
-  console.log("Base Api Resp", resp);
-
   return {
-    data: resp.data.result,
+    data: resp.data,
     message: resp.message,
     statusCode: resp.statusCode,
     // data: "data",
@@ -167,6 +232,7 @@ export const postFetchLogin = async (
     if (resp.data.result !== null) {
       const token = resp.data.result.token;
 
+      // console.log("Token Set to Cookie", token);
       cookieStore.set("token", token, {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       });
