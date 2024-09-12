@@ -1,6 +1,10 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
+import { Skeleton } from "@nextui-org/skeleton";
+import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/breadcrumbs";
+import { useRouter } from "next/navigation";
 
 import useDetailChapterKomikService from "./detailChapterKomikService";
 
@@ -18,110 +22,116 @@ interface ChapterDetailType {
 }
 
 const DetailChapterKomikView = () => {
-  const { slug } = useDetailChapterKomikService();
-  const detailChapterJson: ChapterDetailType = {
-    nextChapter:
-      "/shut-up-evil-dragon-i-dont-want-to-raise-a-child-with-you-anymore-chapter-1/",
-    prevChapter: "",
-    chapterName: "Chapter 00",
-    listImage: [
-      {
-        no: 0,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/IfIhjQFx16kNjvBHO7YJ5vfErdeQ5baj0sMhMxq9.jpg",
-      },
-      {
-        no: 1,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/tsbwUqe3F2YdWUIb0tC4BWxSnALRFVMWv9yJ6ubg.jpg",
-      },
-      {
-        no: 2,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/JVzpCYWBQflB37wT5y1bpWhyM48PjeXjJNkUOGyz.jpg",
-      },
-      {
-        no: 3,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/HfWpP6v08uHYT2cKFBMKadyZIHFyemXlnR9wNgtv.jpg",
-      },
-      {
-        no: 4,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/nMLWZuD2zWcUpPRLcQim5VE1rn8A5Lx4hQCQ7CxK.jpg",
-      },
-      {
-        no: 5,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/N3cPK93T2Hh6Mz3epw4q69tBxQ73NYs615oO3MTz.jpg",
-      },
-      {
-        no: 6,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/xglgU1rpbK58isdI8JiG6l0ba0VgzCdm6HYubNpT.jpg",
-      },
-      {
-        no: 7,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/HPao1KX8lXt7StZlcLorNEtNd10jdLB8YsgoEss3.jpg",
-      },
-      {
-        no: 8,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/OViF17rwYLppgFDCXMKOCdt4VeZx0Nl6wZvRki36.jpg",
-      },
-      {
-        no: 9,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/aOIMcqHr2gMlm7gbt04i268aiN2eCLy2csJqE0c8.jpg",
-      },
-      {
-        no: 10,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/BSGD1yErKtt4QlBVlhv0dG3gKrM81ucV1xPD4O4m.jpg",
-      },
-      {
-        no: 11,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/IDOb0ShDXbKsJyz5t7j82rxHIFE0ayii4HzujVRw.jpg",
-      },
-      {
-        no: 12,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/rfT39DCtOIBlu4Lw5CzDqihv9Lm79JPlQKRdNI8R.jpg",
-      },
-      {
-        no: 13,
-        image:
-          "https://5ln1h5525y2q.kentut.xyz/data/59606968/00/321286f8e5561312686f29d4263be214/A6M97Iw5JrmzlMrqVnU5ftf8udpywUlZuqnbJLw8.jpg",
-      },
-    ],
-  };
+  const router = useRouter();
+  const { slugKomik, slugChapter, detailChapter } =
+    useDetailChapterKomikService();
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="w-2/4 px-4 mt-10 h-auto">
-        <div className="flex justify-between">
-          <div className="border-1 border-primary px-4 py-2 rounded-2xl">
-            Chapter Sebelumnya
-          </div>
-          <div className="border-1 border-primary px-4 py-2 rounded-2xl">
-            Chapter Selanjutnya
-          </div>
+      <div className="fluid-container md:w-2/4 px-4 mt-10 h-auto">
+        <div className={`hidden md:visible`}>
+          <Breadcrumbs>
+            <BreadcrumbItem
+              onPress={() => {
+                router.push("/");
+              }}
+            >
+              Home
+            </BreadcrumbItem>
+            <BreadcrumbItem
+              onPress={() => {
+                router.push("/komik/" + slugKomik);
+              }}
+            >
+              {slugKomik}
+            </BreadcrumbItem>
+            <BreadcrumbItem>{slugChapter}</BreadcrumbItem>
+          </Breadcrumbs>
         </div>
+        <div className="flex mt-10 justify-between">
+          <Skeleton isLoaded={!!detailChapter}>
+            <Link
+              href={`/komik/${slugKomik}/${detailChapter?.prevChapter || "#"}`}
+              style={{
+                pointerEvents: detailChapter?.prevChapter ? "auto" : "none",
+              }}
+            >
+              <div
+                className={`text-sm md:text-xl border-1 border-primary px-4 py-2 rounded-2xl`}
+              >
+                Chapter Sebelumnya
+              </div>
+            </Link>
+          </Skeleton>
+
+          <Skeleton isLoaded={!!detailChapter}>
+            <Link
+              href={`/komik/${slugChapter}/${detailChapter?.nextChapter || "#"}`}
+              style={{
+                pointerEvents: detailChapter?.nextChapter ? "auto" : "none",
+              }}
+            >
+              <div
+                className={`text-sm md:text-xl border-1 border-primary px-4 py-2 rounded-2xl`}
+              >
+                Chapter Selanjutnya
+              </div>
+            </Link>
+          </Skeleton>
+        </div>
+
         <div className="flex flex-col mt-10">
-          {detailChapterJson.listImage.map((item, index) => (
-            <div key={index} className="relative w-full h-auto">
-              <Image
-                alt={`Picture ${index}`}
-                className="rounded-2xl border-2 border-fixed"
-                height={700}
-                layout="responsive"
-                src={item.image}
-                width={500}
-              />
-            </div>
-          ))}
+          {detailChapter
+            ? detailChapter.listImage.map((item: ImageType, index: number) => (
+                <div key={index} className="relative w-full h-auto">
+                  <Image
+                    alt={`Picture ${index}`}
+                    className="rounded-2xl border-2 border-fixed"
+                    height={700}
+                    layout="responsive"
+                    loading={"lazy"}
+                    src={item.image}
+                    width={500}
+                  />
+                </div>
+              ))
+            : // Show skeleton for the images if detailChapter is not loaded
+              [...Array(3)].map((_, index) => (
+                <Skeleton key={index} className="rounded-2xl border-2 my-4">
+                  <div className="relative w-full h-[700px] bg-gray-200" />
+                </Skeleton>
+              ))}
+        </div>
+        <div className="flex mt-10 justify-between">
+          <Skeleton isLoaded={!!detailChapter}>
+            <Link
+              href={`/komik/${slugKomik}/${detailChapter?.prevChapter || "#"}`}
+              style={{
+                pointerEvents: detailChapter?.prevChapter ? "auto" : "none",
+              }}
+            >
+              <div
+                className={`text-sm md:text-xl border-1 border-primary px-4 py-2 rounded-2xl`}
+              >
+                Chapter Sebelumnya
+              </div>
+            </Link>
+          </Skeleton>
+
+          <Skeleton isLoaded={!!detailChapter}>
+            <Link
+              href={`/komik/${slugChapter}/${detailChapter?.nextChapter || "#"}`}
+              style={{
+                pointerEvents: detailChapter?.nextChapter ? "auto" : "none",
+              }}
+            >
+              <div
+                className={`text-sm md:text-xl border-1 border-primary px-4 py-2 rounded-2xl`}
+              >
+                Chapter Selanjutnya
+              </div>
+            </Link>
+          </Skeleton>
         </div>
       </div>
     </div>

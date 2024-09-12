@@ -1,4 +1,8 @@
-import { get } from "@/src/core/api/baseApi";
+import { get, post } from "@/src/core/api/baseApi";
+import {
+  ConvertToModelDetailChapterKomik,
+  ModelDetailChapterKomik,
+} from "@/src/model/modelDetailChapterKomik";
 import {
   ConvertToModelDetailKomik,
   ModelDetailKomik,
@@ -13,13 +17,23 @@ export const getDetailManga = async (
     return null;
   }
 
-  return ConvertToModelDetailKomik.toModelDetailKomik(
-    JSON.stringify(resp.data),
-  );
+  return ConvertToModelDetailKomik.toModelDetailKomik(JSON.stringify(resp));
 };
 
 export const getDetailChapterManga = async (
-  slug: string,
-): Promise<any | null> => {
+  slugkomik: string,
+  slugchapter: string,
+): Promise<ModelDetailChapterKomik | null> => {
   // const resp = await get('/')
+  const resp = await post("/komik/chapter/" + slugkomik + "/" + slugchapter, {
+    title: "string",
+  });
+
+  if (resp === null) {
+    return null;
+  }
+
+  return ConvertToModelDetailChapterKomik.toModelDetailChapterKomik(
+    JSON.stringify(resp),
+  );
 };

@@ -56,7 +56,16 @@ export const get = async (path: string) => {
   // callToastLoading(date.getTime().toString());
   const resp = await getFetchData(path, {});
 
-  // console.log("response", resp);
+  // if (resp.statusCode === 423) {
+  //   callToastError(resp.message);
+  //
+  //   return {
+  //     statusCode: 423,
+  //     message: "You dont have this access",
+  //   };
+  // }
+
+  console.log("response base api detail", resp);
   if (resp.data === null) {
     callToastError(resp.message);
 
@@ -64,7 +73,7 @@ export const get = async (path: string) => {
   }
   // callToastSuccess(resp.data.message);
 
-  return resp;
+  return resp.data;
 };
 
 export const patch = async (path: string, body: Record<string, any>) => {

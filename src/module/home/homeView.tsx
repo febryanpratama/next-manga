@@ -3,15 +3,67 @@ import { Image, Link } from "@nextui-org/react";
 import React from "react";
 
 import HomeService from "./homeService";
+
 // import Link from 'next/link'
 
 const HomeView = () => {
-  const { komik, setKomik } = HomeService();
+  const { komik, setKomik, embla } = HomeService();
+
+  const slides = [
+    {
+      img: "/images/manga/hashira.png",
+    },
+    {
+      img: "/images/manga/hashira.png",
+    },
+    {
+      img: "/images/manga/hashira.png",
+    },
+  ];
 
   return (
-    <div className="flex flex-col py-20 justify-center items-center">
+    <div className="flex flex-col md:py-20 justify-center items-center">
       {/* Higlight */}
-      <div className="container">
+      {/*<div ref={embla} className={`container bg-red-600 embla`}>*/}
+      {/*  <div className={`embla__container`}>*/}
+      {/*    <div className={`embla__slide`}>*/}
+      {/*      <Image*/}
+      {/*        className={`object-fill w-full embla__slide__number`}*/}
+      {/*        src={`/images/manga/hashira.png`}*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*    <div className={`embla__slide`}>*/}
+      {/*      <Image*/}
+      {/*        className={`object-fill w-full embla__slide__number`}*/}
+      {/*        src={`/images/manga/hashira.png`}*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*    <div className={`embla__slide`}>*/}
+      {/*      <Image*/}
+      {/*        className={`object-fill w-full embla__slide__number`}*/}
+      {/*        src={`/images/manga/hashira.png`}*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+
+      <section className="embla px-5">
+        <div ref={embla} className="embla__viewport">
+          <div className="embla__container">
+            {slides.map((item: any, index: number) => (
+              <div key={index} className="embla__slide">
+                <Image
+                  className="w-full object-cover embla__slide__number"
+                  src={`/images/manga/hashira.png`}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/*<EmblaCarouselComponent />*/}
+
+      <div className="container px-5">
         <div className="text-3xl font-bold text-start my-4 ">Highlights</div>
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
           <div className="lg:col-span-3 flex justify-center items-center">
@@ -135,11 +187,13 @@ const HomeView = () => {
       </div>
 
       {/* Manga */}
-      <div className="container my-10">
-        <div className="text-3xl font-bold text-start my-4 ">Highlights</div>
+      <div className="container px-5">
+        <div className="text-3xl font-bold text-center mt-10 mb-5 ">
+          Komik Terbaru
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
           {komik.map((item: any, index: number) => (
-            <div key={index} className="relative">
+            <div key={index} className="relative flex justify-center">
               <Link href={`/komik/${item.id}`}>
                 <Image
                   alt=""
@@ -161,102 +215,6 @@ const HomeView = () => {
               </Link>
             </div>
           ))}
-          {/* <div className="relative">
-                    <Image src='/images/manga/hashira.png' alt='' className="object-fill w-full" loading='eager' radius="lg" />
-                    <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
-                    <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
-                        <div>
-                            Kimatsu No Yaiba
-                        </div>
-                        <div>
-                            lorem ipsum dolor sit amet
-                        </div>
-                    </div>
-                </div>
-                <div className="relative">
-                    <Image src='/images/manga/hashira.png' alt='' className="object-fill w-full" loading='eager' radius="lg" />
-                    <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
-                    <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
-                        <div>
-                            Kimatsu No Yaiba
-                        </div>
-                        <div>
-                            lorem ipsum dolor sit amet
-                        </div>
-                    </div>
-                </div>
-                <div className="relative">
-                    <Image src='/images/manga/hashira.png' alt='' className="object-fill w-full" loading='eager' radius="lg" />
-                    <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
-                    <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
-                        <div>
-                            Kimatsu No Yaiba
-                        </div>
-                        <div>
-                            lorem ipsum dolor sit amet
-                        </div>
-                    </div>
-                </div>
-                <div className="relative">
-                    <Image src='/images/manga/hashira.png' alt='' className="object-fill w-full" loading='eager' radius="lg" />
-                    <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
-                    <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
-                        <div>
-                            Kimatsu No Yaiba
-                        </div>
-                        <div>
-                            lorem ipsum dolor sit amet
-                        </div>
-                    </div>
-                </div>
-                <div className="relative">
-                    <Image src='/images/manga/hashira.png' alt='' className="object-fill w-full" loading='eager' radius="lg" />
-                    <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
-                    <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
-                        <div>
-                            Kimatsu No Yaiba
-                        </div>
-                        <div>
-                            lorem ipsum dolor sit amet
-                        </div>
-                    </div>
-                </div>
-                <div className="relative">
-                    <Image src='/images/manga/hashira.png' alt='' className="object-fill w-full" loading='eager' radius="lg" />
-                    <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
-                    <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
-                        <div>
-                            Kimatsu No Yaiba
-                        </div>
-                        <div>
-                            lorem ipsum dolor sit amet
-                        </div>
-                    </div>
-                </div>
-                <div className="relative">
-                    <Image src='/images/manga/hashira.png' alt='' className="object-fill w-full" loading='eager' radius="lg" />
-                    <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
-                    <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
-                        <div>
-                            Kimatsu No Yaiba
-                        </div>
-                        <div>
-                            lorem ipsum dolor sit amet
-                        </div>
-                    </div>
-                </div>
-                <div className="relative">
-                    <Image src='/images/manga/hashira.png' alt='' className="object-fill w-full" loading='eager' radius="lg" />
-                    <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
-                    <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
-                        <div>
-                            Kimatsu No Yaiba
-                        </div>
-                        <div>
-                            lorem ipsum dolor sit amet
-                        </div>
-                    </div>
-                </div> */}
         </div>
       </div>
     </div>
