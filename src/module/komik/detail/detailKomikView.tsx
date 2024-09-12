@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Skeleton } from "@nextui-org/skeleton";
+import { Button } from "@nextui-org/button";
 
 import useDetailMangaService from "./detailKomikService";
 
@@ -17,7 +18,7 @@ const DetailKomikService = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 px-2 py-2">
               {/* Image Skeleton Loader */}
               <Skeleton
-                className="md:col-span-1 items-center mx-auto"
+                className="md:col-span-1 flex flex-col items-center justify-center mx-auto"
                 isLoaded={!!detailKomik}
               >
                 {detailKomik ? (
@@ -31,8 +32,16 @@ const DetailKomikService = () => {
                 ) : (
                   <div className="rounded-2xl border-2 border-fixed bg-gray-200 h-[295px] w-[236px]" />
                 )}
+
+                {/* Center the button */}
+                <div className="flex justify-center w-full">
+                  <Button className="mt-5" color={"primary"} variant={"ghost"}>
+                    + Add to Library
+                  </Button>
+                </div>
               </Skeleton>
-              <div className="md:col-span-2">
+
+              <div className="md:col-span-2 mt-10 md:mt-0">
                 <Skeleton isLoaded={!!detailKomik}>
                   <div className="text-2xl font-bold text-justify">
                     {detailKomik?.dataDetail.judul || "Loading title..."}
