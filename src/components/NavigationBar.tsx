@@ -48,6 +48,11 @@ export const NavigationBar = () => {
           </Link>
         </NavbarItem>
         <NavbarItem>
+          <Link color="foreground" href="/favorite">
+            Favorite
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
           <Link color="foreground" href="#">
             Popular
           </Link>

@@ -7,6 +7,10 @@ import {
   ConvertToModelDetailKomik,
   ModelDetailKomik,
 } from "@/src/model/modelDetailKomik";
+import {
+  ConvertToModelFavorite,
+  ModelFavorite,
+} from "@/src/model/modelFavorite";
 
 export const getDetailManga = async (
   slug: string,
@@ -36,4 +40,14 @@ export const getDetailChapterManga = async (
   return ConvertToModelDetailChapterKomik.toModelDetailChapterKomik(
     JSON.stringify(resp),
   );
+};
+
+export const getKomikFavorite = async (): Promise<ModelFavorite | null> => {
+  const resp = await get("/favorite");
+
+  if (resp === null) {
+    return null;
+  }
+
+  return ConvertToModelFavorite.toModelFavorite(JSON.stringify(resp));
 };

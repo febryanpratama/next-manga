@@ -53,19 +53,8 @@ export const postLogin = async (path: string, body: Record<string, any>) => {
 export const get = async (path: string) => {
   const date = new Date();
 
-  // callToastLoading(date.getTime().toString());
   const resp = await getFetchData(path, {});
 
-  // if (resp.statusCode === 423) {
-  //   callToastError(resp.message);
-  //
-  //   return {
-  //     statusCode: 423,
-  //     message: "You dont have this access",
-  //   };
-  // }
-
-  console.log("response base api detail", resp);
   if (resp.data === null) {
     callToastError(resp.message);
 
