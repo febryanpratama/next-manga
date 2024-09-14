@@ -26,7 +26,7 @@ const DetailKomikService = () => {
                     alt="Thumbnail"
                     className="rounded-2xl border-2 border-fixed"
                     height={295}
-                    src={detailKomik.tumbnail}
+                    src={`https://komikindo.ws${detailKomik.tumbnail}`}
                     width={236}
                   />
                 ) : (

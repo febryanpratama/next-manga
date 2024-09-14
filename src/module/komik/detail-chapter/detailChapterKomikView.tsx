@@ -66,7 +66,7 @@ const DetailChapterKomikView = () => {
 
           <Skeleton isLoaded={!!detailChapter}>
             <Link
-              href={`/komik/${slugChapter}/${detailChapter?.nextChapter || "#"}`}
+              href={`/komik/${slugKomik}/${detailChapter?.nextChapter || "#"}`}
               style={{
                 pointerEvents: detailChapter?.nextChapter ? "auto" : "none",
               }}
@@ -90,7 +90,7 @@ const DetailChapterKomikView = () => {
                     height={700}
                     layout="responsive"
                     loading={"lazy"}
-                    src={item.image}
+                    src={`https://komikindo.ws${item.image}`}
                     width={500}
                   />
                 </div>
@@ -120,7 +120,7 @@ const DetailChapterKomikView = () => {
 
           <Skeleton isLoaded={!!detailChapter}>
             <Link
-              href={`/komik/${slugChapter}/${detailChapter?.nextChapter || "#"}`}
+              href={`/komik/${slugKomik}/${detailChapter?.nextChapter || "#"}`}
               style={{
                 pointerEvents: detailChapter?.nextChapter ? "auto" : "none",
               }}
