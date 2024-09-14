@@ -201,7 +201,7 @@ const HomeView = () => {
                   height={500}
                   loading="lazy"
                   radius="lg"
-                  src={`https://komikindo.ws${item.urlGambar}`}
+                  src={`${item.urlGambar}`}
                 />
                 <div className="absolute z-20 bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/100 to-transparent rounded-b-lg" />
                 <div className="absolute bottom-10 z-40 inset-x-0 flex flex-col items-center justify-center">
