@@ -23,7 +23,7 @@ const FavoriteView = () => {
                 <Image
                   alt={`Gambar ` + item.judul}
                   height={250}
-                  src={`https://komikindo.ws${item.urlGambar}`}
+                  src={`${item.urlGambar}`}
                   width={150}
                 />
                 <div>{item.judul}</div>
