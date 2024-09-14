@@ -90,7 +90,7 @@ const DetailChapterKomikView = () => {
                     height={700}
                     layout="responsive"
                     loading={"lazy"}
-                    src={`https://komikindo.ws${item.image}`}
+                    src={`${item.image}`}
                     width={500}
                   />
                 </div>
